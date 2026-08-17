@@ -32,7 +32,7 @@ export default function QuizSessionPage() {
 
   if (isLoading) return <LoadingSpinner label="Building your session…" />;
   if (!session || session.questions.length === 0) {
-    return <p className="text-sm text-gray-500">No questions available for this course yet.</p>;
+    return <p className="text-sm text-ink-muted">No questions available for this course yet.</p>;
   }
 
   const question = session.questions[index];
@@ -78,16 +78,18 @@ export default function QuizSessionPage() {
       {isAwaitingGrade && <LoadingSpinner label="Grading your answer…" />}
 
       {isGraded && lastAttempt && (
-        <div className="flex flex-col gap-3 rounded border p-4">
-          <p className="text-lg font-semibold">Score: {Math.round((lastAttempt.score ?? 0) * 100)}%</p>
-          <p className="text-sm text-gray-700">{lastAttempt.feedback}</p>
+        <div className="card flex flex-col gap-3 p-4">
+          <p className="text-lg font-semibold text-ink-primary">
+            Score: {Math.round((lastAttempt.score ?? 0) * 100)}%
+          </p>
+          <p className="text-sm text-ink-secondary">{lastAttempt.feedback}</p>
           <div className="flex items-center justify-between">
-            <a href={`/review/${lastAttempt.id}`} className="text-sm underline">
+            <a href={`/review/${lastAttempt.id}`} className="text-sm text-seq-600 underline">
               View source
             </a>
             <ContestGradeButton attemptId={lastAttempt.id} />
           </div>
-          <button onClick={handleNext} className="self-start rounded bg-black px-4 py-2 text-white">
+          <button onClick={handleNext} className="btn-primary self-start">
             {isLast ? "Finish session" : "Next question"}
           </button>
         </div>

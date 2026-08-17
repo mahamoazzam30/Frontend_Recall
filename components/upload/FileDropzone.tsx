@@ -23,12 +23,12 @@ export function FileDropzone({ onFilesSelected }: { onFilesSelected: (files: Fil
       onDragLeave={() => setIsDragging(false)}
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
-      className={`flex cursor-pointer flex-col items-center justify-center rounded border-2 border-dashed p-10 text-center ${
-        isDragging ? "border-black bg-gray-50" : "border-gray-300"
+      className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-10 text-center transition ${
+        isDragging ? "border-seq-500 bg-seq-100/40" : "border-ink-primary/15 hover:border-ink-primary/25"
       }`}
     >
-      <p className="font-medium">Drag & drop files here, or click to browse</p>
-      <p className="mt-1 text-sm text-gray-500">PDF, Markdown, or TXT</p>
+      <p className="font-medium text-ink-primary">Drag & drop files here, or click to browse</p>
+      <p className="mt-1 text-sm text-ink-muted">PDF, Markdown, or TXT</p>
       <input
         ref={inputRef}
         type="file"

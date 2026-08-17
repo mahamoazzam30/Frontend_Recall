@@ -21,8 +21,8 @@ export default function CoursesPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Courses</h1>
-        <button onClick={() => setShowModal(true)} className="rounded bg-black px-4 py-2 text-sm text-white">
+        <h1 className="text-2xl font-bold text-ink-primary">Courses</h1>
+        <button onClick={() => setShowModal(true)} className="btn-primary">
           New course
         </button>
       </div>
@@ -36,7 +36,7 @@ export default function CoursesPage() {
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-ink-muted">
           No courses yet — create one to start uploading materials and tracking mastery.
         </p>
       )}

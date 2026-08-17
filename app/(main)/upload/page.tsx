@@ -29,13 +29,13 @@ export default function UploadPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold">Upload materials</h1>
+      <h1 className="text-2xl font-bold text-ink-primary">Upload materials</h1>
 
       <section className="flex flex-col gap-2">
-        <label className="text-sm font-medium">Course</label>
+        <label className="text-sm font-medium text-ink-primary">Course</label>
         <div className="flex gap-2">
           <select
-            className="rounded border p-2"
+            className="input"
             value={selectedCourseId}
             onChange={(e) => {
               setSelectedCourseId(e.target.value);
@@ -52,11 +52,7 @@ export default function UploadPage() {
           </select>
 
           {courseDetail && courseDetail.modules.length > 0 && (
-            <select
-              className="rounded border p-2"
-              value={selectedModuleId}
-              onChange={(e) => setSelectedModuleId(e.target.value)}
-            >
+            <select className="input" value={selectedModuleId} onChange={(e) => setSelectedModuleId(e.target.value)}>
               <option value="">No module</option>
               {courseDetail.modules.map((m) => (
                 <option key={m.id} value={m.id}>
@@ -67,9 +63,9 @@ export default function UploadPage() {
           )}
         </div>
         {!coursesLoading && (!courses || courses.length === 0) && (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink-muted">
             No courses yet — create one from the{" "}
-            <a href="/courses" className="underline">
+            <a href="/courses" className="text-seq-600 underline">
               Courses page
             </a>{" "}
             first.
@@ -81,12 +77,12 @@ export default function UploadPage() {
         {selectedCourseId ? (
           <FileDropzone onFilesSelected={handleFilesSelected} />
         ) : (
-          <p className="text-sm text-gray-500">Select a course before uploading.</p>
+          <p className="text-sm text-ink-muted">Select a course before uploading.</p>
         )}
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold">Materials</h2>
+        <h2 className="font-semibold text-ink-primary">Materials</h2>
         <MaterialStatusList materials={materials ?? []} />
       </section>
     </div>

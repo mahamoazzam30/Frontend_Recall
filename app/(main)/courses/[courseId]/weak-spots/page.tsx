@@ -22,13 +22,9 @@ export default function WeakSpotsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Weak spots</h1>
+        <h1 className="text-2xl font-bold text-ink-primary">Weak spots</h1>
         {weakSpots && weakSpots.length > 0 && (
-          <button
-            onClick={handlePracticeAll}
-            disabled={practiceAll.isPending}
-            className="rounded bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
-          >
+          <button onClick={handlePracticeAll} disabled={practiceAll.isPending} className="btn-primary">
             {practiceAll.isPending ? "Starting…" : "Practice all weak spots"}
           </button>
         )}
@@ -43,7 +39,7 @@ export default function WeakSpotsPage() {
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500">No weak spots right now — keep practicing to stay ahead.</p>
+        <p className="text-sm text-ink-muted">No weak spots right now — keep practicing to stay ahead.</p>
       )}
     </div>
   );
