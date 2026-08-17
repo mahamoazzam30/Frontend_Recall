@@ -16,13 +16,13 @@ export default function ReviewPage() {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <div className="flex flex-col gap-3">
-        <h1 className="text-xl font-bold text-ink-primary">Your answer</h1>
+        <h1 className="text-xl font-bold text-teal-700">Your answer</h1>
         <p className="card p-3 text-ink-primary">{attempt.student_answer}</p>
         <p className="text-lg font-semibold text-ink-primary">Score: {Math.round((attempt.score ?? 0) * 100)}%</p>
         <p className="text-sm text-ink-secondary">{attempt.feedback}</p>
       </div>
       <div>
-        <h2 className="mb-3 text-xl font-bold text-ink-primary">Source</h2>
+        <h2 className="mb-3 text-xl font-bold text-orange-700">Source</h2>
         <SourcePassagePanel
           content={attempt.source_passage ?? "Source passage unavailable."}
           pageRef={attempt.source_page_ref}

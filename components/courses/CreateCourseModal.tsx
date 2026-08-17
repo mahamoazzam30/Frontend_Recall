@@ -26,7 +26,7 @@ export function CreateCourseModal({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-ink-primary/40 p-4 backdrop-blur-sm">
       <form onSubmit={handleSubmit} className="card w-full max-w-sm p-5">
-        <h2 className="mb-4 text-lg font-semibold text-ink-primary">New course</h2>
+        <h2 className="mb-4 text-lg font-semibold text-indigo-700">New course</h2>
 
         <label className="mb-1 block text-sm font-medium text-ink-primary">Name</label>
         <input

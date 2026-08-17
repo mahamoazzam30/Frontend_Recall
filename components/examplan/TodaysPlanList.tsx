@@ -25,7 +25,7 @@ export function TodaysPlanList({
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 font-semibold text-ink-primary">Today's plan</h3>
+      <h3 className="mb-3 font-semibold text-orange-700">Today's plan</h3>
       <ul className="mb-4 flex flex-col gap-2">
         {targetConceptIds.map((id) => (
           <li key={id} className="rounded-lg border border-ink-primary/10 bg-surface-page p-2 text-sm text-ink-primary">

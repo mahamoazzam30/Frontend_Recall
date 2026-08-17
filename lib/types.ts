@@ -118,6 +118,16 @@ export interface ExamPlan {
   today_target_concept_ids: string[];
 }
 
+export interface ChatSource {
+  content: string;
+  page_ref: string | null;
+}
+
+export interface ChatResponse {
+  answer: string;
+  sources: ChatSource[];
+}
+
 export interface WeakSpot {
   concept_id: string;
   concept_name: string;

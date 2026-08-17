@@ -17,7 +17,7 @@ export default function QuizLauncherPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink-primary">Start a quiz session</h1>
+      <h1 className="text-2xl font-bold text-purple-700">Start a quiz session</h1>
 
       {isLoading ? (
         <p className="text-sm text-ink-muted">Loading courses…</p>

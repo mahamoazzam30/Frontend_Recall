@@ -18,7 +18,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex max-w-sm flex-col gap-4">
-      <h1 className="text-2xl font-bold text-ink-primary">Profile</h1>
+      <h1 className="text-2xl font-bold text-indigo-700">Profile</h1>
       <div className="card flex flex-col gap-3 p-5">
         {isLoading ? (
           <p className="text-sm text-ink-muted">Loading…</p>

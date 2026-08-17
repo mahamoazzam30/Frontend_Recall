@@ -28,7 +28,7 @@ export default function LoginPage() {
         <span className="bg-gradient-to-r from-seq-600 to-seq-400 bg-clip-text text-transparent">Recall</span>
       </h1>
       <div className="card flex flex-col gap-4 p-6">
-        <h2 className="text-lg font-semibold text-ink-primary">Log in</h2>
+        <h2 className="text-lg font-semibold text-seq-700">Log in</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="email"
