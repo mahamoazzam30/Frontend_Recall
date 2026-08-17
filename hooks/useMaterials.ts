@@ -1,41 +1,37 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "@/lib/api";
-import { Material, Subject } from "@/lib/types";
-
-export function useSubjects() {
-  return useQuery({
-    queryKey: ["subjects"],
-    queryFn: () => api.get<Subject[]>("/subjects"),
-  });
-}
-
-export function useCreateSubject() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (name: string) => api.post<Subject>("/subjects", { name }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["subjects"] }),
-  });
-}
+import { Material } from "@/lib/types";
 
 export function useUploadMaterial() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ file, subjectId }: { file: File; subjectId: string }) => {
+    mutationFn: async ({
+      file,
+      courseId,
+      moduleId,
+    }: {
+      file: File;
+      courseId: string;
+      moduleId?: string;
+    }) => {
       const formData = new FormData();
       formData.append("file", file);
-      return api.post<Material>(`/materials/upload?subject_id=${subjectId}`, formData);
+      const query = moduleId ? `course_id=${courseId}&module_id=${moduleId}` : `course_id=${courseId}`;
+      return api.post<Material>(`/materials/upload?${query}`, formData);
     },
-    onSuccess: (_data, { subjectId }) =>
-      queryClient.invalidateQueries({ queryKey: ["materials", subjectId] }),
+    onSuccess: (_data, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: ["materials", courseId] });
+      queryClient.invalidateQueries({ queryKey: ["courses", courseId] });
+    },
   });
 }
 
-export function useMaterialsForSubject(subjectId: string | null) {
+export function useMaterialsForCourse(courseId: string | null) {
   return useQuery({
-    queryKey: ["materials", subjectId],
-    queryFn: () => api.get<Material[]>(`/materials?subject_id=${subjectId}`),
-    enabled: !!subjectId,
+    queryKey: ["materials", courseId],
+    queryFn: () => api.get<Material[]>(`/materials?course_id=${courseId}`),
+    enabled: !!courseId,
     refetchInterval: (query) => {
       const materials = query.state.data;
       const stillProcessing = materials?.some((m) => m.status === "processing");

@@ -1,23 +1,48 @@
 export type SourceType = "pdf" | "md" | "txt";
 export type MaterialStatus = "processing" | "ready" | "needs_review" | "failed";
 export type QuestionType = "mcq" | "cloze" | "short_answer";
+export type ColorTag = "blue" | "green" | "purple" | "pink" | "orange" | "teal" | "red" | "indigo";
+export type ExamPlanStatus = "active" | "completed" | "cancelled";
 
 export interface User {
   id: string;
   email: string;
 }
 
-export interface Subject {
+export interface Course {
   id: string;
   name: string;
+  color_tag: ColorTag | null;
+  created_at: string;
+}
+
+export interface CourseListItem extends Course {
+  mastery_pct: number;
+  due_count: number;
+}
+
+export interface Module {
+  id: string;
+  course_id: string;
+  name: string;
+  order_index: number;
 }
 
 export interface Material {
   id: string;
-  subject_id: string;
+  course_id: string;
+  module_id: string | null;
   filename: string;
   source_type: SourceType;
   status: MaterialStatus;
+}
+
+export interface CourseDetail {
+  course: Course;
+  modules: Module[];
+  materials: Material[];
+  mastery_pct: number;
+  due_count: number;
 }
 
 export interface Question {
@@ -74,4 +99,29 @@ export interface HistoryPoint {
   concept_id: string;
   concept_name: string;
   accuracy: number;
+}
+
+export interface CourseDashboard {
+  mastery: MasteryEntry[];
+  due_today: DueTodayEntry[];
+  current_streak_days: number;
+  longest_streak_days: number;
+}
+
+export interface ExamPlan {
+  id: string;
+  course_id: string;
+  exam_date: string;
+  status: ExamPlanStatus;
+  days_left: number;
+  readiness_pct: number;
+  today_target_concept_ids: string[];
+}
+
+export interface WeakSpot {
+  concept_id: string;
+  concept_name: string;
+  mastery_pct: number;
+  error_note: string | null;
+  last_reviewed_at: string | null;
 }

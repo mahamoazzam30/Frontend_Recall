@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { ContestGradeButton } from "@/components/quiz/ContestGradeButton";
@@ -13,13 +13,18 @@ import { useQuizSession, useSubmitAttempt } from "@/hooks/useQuizSession";
 import { Attempt } from "@/lib/types";
 
 // The route is `[sessionId]` per the plan's file layout, but a session is
-// generated on demand from a subject — so this param is really a subjectId.
+// generated on demand from a course — so this param is really a courseId.
+// An optional `?concept=<id>` (repeatable) query param, set by the exam-plan
+// "Practice now" and weak-spots "Practice this" buttons, scopes the session
+// to specific concepts instead of the default weakest-first selection.
 export default function QuizSessionPage() {
   const params = useParams<{ sessionId: string }>();
-  const subjectId = params.sessionId;
+  const courseId = params.sessionId;
+  const searchParams = useSearchParams();
+  const conceptIds = searchParams.getAll("concept");
   const router = useRouter();
 
-  const { data: session, isLoading } = useQuizSession(subjectId);
+  const { data: session, isLoading } = useQuizSession(courseId, conceptIds.length ? conceptIds : undefined);
   const submitAttempt = useSubmitAttempt();
 
   const [index, setIndex] = useState(0);
@@ -27,7 +32,7 @@ export default function QuizSessionPage() {
 
   if (isLoading) return <LoadingSpinner label="Building your session…" />;
   if (!session || session.questions.length === 0) {
-    return <p className="text-sm text-gray-500">No questions available for this subject yet.</p>;
+    return <p className="text-sm text-gray-500">No questions available for this course yet.</p>;
   }
 
   const question = session.questions[index];
@@ -42,7 +47,7 @@ export default function QuizSessionPage() {
   function handleNext() {
     setLastAttempt(null);
     if (isLast) {
-      router.push("/dashboard");
+      router.push(`/courses/${courseId}`);
     } else {
       setIndex((i) => i + 1);
     }

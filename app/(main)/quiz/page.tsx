@@ -3,16 +3,16 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useSubjects } from "@/hooks/useMaterials";
+import { useCourses } from "@/hooks/useCourses";
 
 export default function QuizLauncherPage() {
-  const { data: subjects, isLoading } = useSubjects();
-  const [subjectId, setSubjectId] = useState("");
+  const { data: courses, isLoading } = useCourses();
+  const [courseId, setCourseId] = useState("");
   const router = useRouter();
 
   function startSession() {
-    if (!subjectId) return;
-    router.push(`/quiz/${subjectId}`);
+    if (!courseId) return;
+    router.push(`/quiz/${courseId}`);
   }
 
   return (
@@ -20,20 +20,20 @@ export default function QuizLauncherPage() {
       <h1 className="text-2xl font-bold">Start a quiz session</h1>
 
       {isLoading ? (
-        <p className="text-sm text-gray-500">Loading subjects…</p>
-      ) : subjects && subjects.length > 0 ? (
+        <p className="text-sm text-gray-500">Loading courses…</p>
+      ) : courses && courses.length > 0 ? (
         <div className="flex gap-2">
-          <select className="rounded border p-2" value={subjectId} onChange={(e) => setSubjectId(e.target.value)}>
-            <option value="">Select a subject…</option>
-            {subjects.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
+          <select className="rounded border p-2" value={courseId} onChange={(e) => setCourseId(e.target.value)}>
+            <option value="">Select a course…</option>
+            {courses.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
               </option>
             ))}
           </select>
           <button
             onClick={startSession}
-            disabled={!subjectId}
+            disabled={!courseId}
             className="rounded bg-black px-4 py-2 text-white disabled:opacity-50"
           >
             Start session

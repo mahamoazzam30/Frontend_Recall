@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/lib/auth";
 
 const links = [
+  { href: "/courses", label: "Courses" },
   { href: "/upload", label: "Upload" },
   { href: "/quiz", label: "Quiz" },
   { href: "/dashboard", label: "Dashboard" },
@@ -22,7 +23,7 @@ export function Navbar() {
 
   return (
     <nav className="flex items-center justify-between border-b p-4">
-      <Link href="/dashboard" className="text-lg font-bold">
+      <Link href="/courses" className="text-lg font-bold">
         Recall
       </Link>
       <div className="flex items-center gap-4 text-sm">

@@ -3,11 +3,18 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Attempt, Contest, QuizSession } from "@/lib/types";
 
-export function useQuizSession(subjectId: string | null) {
+export function useQuizSession(courseId: string | null, conceptIds?: string[]) {
+  const conceptQuery = conceptIds?.length
+    ? conceptIds.map((id) => `concept_ids=${id}`).join("&")
+    : "";
+
   return useQuery({
-    queryKey: ["quiz-session", subjectId],
-    queryFn: () => api.get<QuizSession>(`/quiz/session/next?subject_id=${subjectId}`),
-    enabled: !!subjectId,
+    queryKey: ["quiz-session", courseId, conceptIds ?? null],
+    queryFn: () =>
+      api.get<QuizSession>(
+        `/quiz/session/next?course_id=${courseId}${conceptQuery ? `&${conceptQuery}` : ""}`
+      ),
+    enabled: !!courseId,
     staleTime: Infinity,
   });
 }

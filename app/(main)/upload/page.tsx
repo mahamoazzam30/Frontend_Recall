@@ -4,29 +4,27 @@ import { useState } from "react";
 
 import { FileDropzone } from "@/components/upload/FileDropzone";
 import { MaterialStatusList } from "@/components/upload/MaterialStatusList";
-import { useCreateSubject, useMaterialsForSubject, useSubjects, useUploadMaterial } from "@/hooks/useMaterials";
+import { useCourse, useCourses } from "@/hooks/useCourses";
+import { useMaterialsForCourse, useUploadMaterial } from "@/hooks/useMaterials";
 
 export default function UploadPage() {
-  const { data: subjects, isLoading: subjectsLoading } = useSubjects();
-  const createSubject = useCreateSubject();
+  const { data: courses, isLoading: coursesLoading } = useCourses();
   const uploadMaterial = useUploadMaterial();
 
-  const [selectedSubjectId, setSelectedSubjectId] = useState<string>("");
-  const [newSubjectName, setNewSubjectName] = useState("");
-  const { data: materials } = useMaterialsForSubject(selectedSubjectId || null);
+  const [selectedCourseId, setSelectedCourseId] = useState<string>("");
+  const [selectedModuleId, setSelectedModuleId] = useState<string>("");
+  const { data: courseDetail } = useCourse(selectedCourseId || null);
+  const { data: materials } = useMaterialsForCourse(selectedCourseId || null);
 
   async function handleFilesSelected(files: File[]) {
-    if (!selectedSubjectId) return;
+    if (!selectedCourseId) return;
     for (const file of files) {
-      await uploadMaterial.mutateAsync({ file, subjectId: selectedSubjectId });
+      await uploadMaterial.mutateAsync({
+        file,
+        courseId: selectedCourseId,
+        moduleId: selectedModuleId || undefined,
+      });
     }
-  }
-
-  async function handleCreateSubject() {
-    if (!newSubjectName.trim()) return;
-    const subject = await createSubject.mutateAsync(newSubjectName.trim());
-    setSelectedSubjectId(subject.id);
-    setNewSubjectName("");
   }
 
   return (
@@ -34,38 +32,56 @@ export default function UploadPage() {
       <h1 className="text-2xl font-bold">Upload materials</h1>
 
       <section className="flex flex-col gap-2">
-        <label className="text-sm font-medium">Subject</label>
+        <label className="text-sm font-medium">Course</label>
         <div className="flex gap-2">
           <select
             className="rounded border p-2"
-            value={selectedSubjectId}
-            onChange={(e) => setSelectedSubjectId(e.target.value)}
-            disabled={subjectsLoading}
+            value={selectedCourseId}
+            onChange={(e) => {
+              setSelectedCourseId(e.target.value);
+              setSelectedModuleId("");
+            }}
+            disabled={coursesLoading}
           >
-            <option value="">Select a subject…</option>
-            {subjects?.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
+            <option value="">Select a course…</option>
+            {courses?.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
               </option>
             ))}
           </select>
-          <input
-            className="rounded border p-2"
-            placeholder="New subject name"
-            value={newSubjectName}
-            onChange={(e) => setNewSubjectName(e.target.value)}
-          />
-          <button onClick={handleCreateSubject} className="rounded bg-black px-3 py-2 text-sm text-white">
-            Create
-          </button>
+
+          {courseDetail && courseDetail.modules.length > 0 && (
+            <select
+              className="rounded border p-2"
+              value={selectedModuleId}
+              onChange={(e) => setSelectedModuleId(e.target.value)}
+            >
+              <option value="">No module</option>
+              {courseDetail.modules.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
+        {!coursesLoading && (!courses || courses.length === 0) && (
+          <p className="text-sm text-gray-500">
+            No courses yet — create one from the{" "}
+            <a href="/courses" className="underline">
+              Courses page
+            </a>{" "}
+            first.
+          </p>
+        )}
       </section>
 
       <section>
-        {selectedSubjectId ? (
+        {selectedCourseId ? (
           <FileDropzone onFilesSelected={handleFilesSelected} />
         ) : (
-          <p className="text-sm text-gray-500">Select or create a subject before uploading.</p>
+          <p className="text-sm text-gray-500">Select a course before uploading.</p>
         )}
       </section>
 

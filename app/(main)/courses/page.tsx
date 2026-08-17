@@ -1,0 +1,53 @@
+"use client";
+
+import { useState } from "react";
+
+import { CourseCard } from "@/components/courses/CourseCard";
+import { CreateCourseModal } from "@/components/courses/CreateCourseModal";
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { useCourses, useCreateCourse } from "@/hooks/useCourses";
+import { ColorTag } from "@/lib/types";
+
+export default function CoursesPage() {
+  const { data: courses, isLoading } = useCourses();
+  const createCourse = useCreateCourse();
+  const [showModal, setShowModal] = useState(false);
+
+  async function handleCreate(name: string, colorTag: ColorTag) {
+    await createCourse.mutateAsync({ name, colorTag });
+    setShowModal(false);
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Courses</h1>
+        <button onClick={() => setShowModal(true)} className="rounded bg-black px-4 py-2 text-sm text-white">
+          New course
+        </button>
+      </div>
+
+      {isLoading ? (
+        <LoadingSpinner label="Loading courses…" />
+      ) : courses && courses.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-gray-500">
+          No courses yet — create one to start uploading materials and tracking mastery.
+        </p>
+      )}
+
+      {showModal && (
+        <CreateCourseModal
+          onCreate={handleCreate}
+          onClose={() => setShowModal(false)}
+          isCreating={createCourse.isPending}
+        />
+      )}
+    </div>
+  );
+}
