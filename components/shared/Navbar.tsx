@@ -6,11 +6,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/lib/auth";
 
 const links = [
-  { href: "/courses", label: "Courses" },
-  { href: "/upload", label: "Upload" },
-  { href: "/quiz", label: "Quiz" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/profile", label: "Profile" },
+  { href: "/courses", label: "Courses", color: "text-indigo-700" },
+  { href: "/upload", label: "Upload", color: "text-teal-700" },
+  { href: "/quiz", label: "Quiz", color: "text-purple-700" },
+  { href: "/dashboard", label: "Dashboard", color: "text-orange-700" },
+  { href: "/profile", label: "Profile", color: "text-pink-700" },
 ];
 
 export function Navbar() {
@@ -34,7 +34,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={active ? "font-medium text-seq-600" : "text-ink-secondary hover:text-ink-primary"}
+              className={`${link.color} transition ${active ? "font-semibold" : "opacity-60 hover:opacity-100"}`}
             >
               {link.label}
             </Link>
