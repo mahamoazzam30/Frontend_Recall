@@ -33,3 +33,41 @@ body {
     @apply rounded-lg border border-ink-primary/15 bg-surface-card p-2 text-sm text-ink-primary placeholder:text-ink-muted focus:border-seq-500 focus:outline-none focus:ring-2 focus:ring-seq-500/20;
   }
 }
+
+@layer utilities {
+  .chat-prose {
+    @apply prose prose-sm max-w-none text-ink-primary prose-headings:font-semibold prose-headings:text-ink-primary prose-p:my-1.5 prose-p:leading-relaxed prose-strong:text-ink-primary prose-ul:my-1.5 prose-ol:my-1.5 prose-li:my-0.5 prose-a:text-seq-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-seq-600/10 prose-code:px-1 prose-code:py-0.5 prose-code:text-seq-700 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-ink-primary prose-pre:text-surface-page prose-blockquote:border-l-seq-400 prose-blockquote:text-ink-secondary prose-hr:my-3 prose-hr:border-hairline;
+  }
+
+  .typing-dot {
+    animation: typing-bounce 1.2s infinite ease-in-out;
+  }
+
+  @keyframes typing-bounce {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes message-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .message-in {
+    animation: message-in 0.2s ease-out;
+  }
+}

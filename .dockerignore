@@ -1,0 +1,21 @@
+.git
+.gitignore
+
+node_modules/
+.next/
+out/
+build/
+
+# Secrets and local overrides stay out of the image. NEXT_PUBLIC_API_URL is
+# passed in as a build arg instead.
+.env
+.env*.local
+
+*.tsbuildinfo
+*.log
+
+.idea/
+.vscode/
+
+Dockerfile
+.dockerignore
