@@ -8,6 +8,9 @@
     "dev:backend": "C:/Users/User/PycharmProjects/PythonProject1/.venv/Scripts/python.exe -m uvicorn app.main:app --reload --reload-dir C:/Users/User/PycharmProjects/PythonProject1/backend --port 8000 --app-dir C:/Users/User/PycharmProjects/PythonProject1/backend",
     "build": "next build",
     "start": "next start",
+    "predemo": "next build",
+    "demo": "concurrently -n frontend,backend -c blue,green \"npm:start\" \"npm:demo:backend\"",
+    "demo:backend": "C:/Users/User/PycharmProjects/PythonProject1/.venv/Scripts/python.exe -m uvicorn app.main:app --port 8000 --app-dir C:/Users/User/PycharmProjects/PythonProject1/backend",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
