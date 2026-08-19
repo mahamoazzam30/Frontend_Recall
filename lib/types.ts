@@ -128,6 +128,11 @@ export interface ChatResponse {
   sources: ChatSource[];
 }
 
+export interface Topic {
+  id: string;
+  name: string;
+}
+
 export interface WeakSpot {
   concept_id: string;
   concept_name: string;

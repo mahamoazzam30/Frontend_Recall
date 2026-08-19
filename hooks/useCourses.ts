@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "@/lib/api";
-import { ColorTag, CourseDashboard, CourseDetail, CourseListItem, Module } from "@/lib/types";
+import { ColorTag, CourseDashboard, CourseDetail, CourseListItem, Module, Topic } from "@/lib/types";
 
 export function useCourses() {
   return useQuery({
@@ -15,6 +15,15 @@ export function useCourse(courseId: string | null) {
     queryKey: ["courses", courseId],
     queryFn: () => api.get<CourseDetail>(`/courses/${courseId}`),
     enabled: !!courseId,
+  });
+}
+
+export function useCourseTopics(courseId: string | null) {
+  return useQuery({
+    queryKey: ["courses", courseId, "topics"],
+    queryFn: () => api.get<{ topics: Topic[] }>(`/courses/${courseId}/topics`),
+    enabled: !!courseId,
+    staleTime: Infinity,
   });
 }
 
