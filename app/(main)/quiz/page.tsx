@@ -6,6 +6,7 @@ import { useState } from "react";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { useCourses, useCourseTopics } from "@/hooks/useCourses";
 import { COLOR_TAG_ACCENT } from "@/lib/colorTags";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 
 export default function QuizLauncherPage() {
   const { data: courses, isLoading: coursesLoading } = useCourses();
@@ -40,7 +41,7 @@ export default function QuizLauncherPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink-primary">Start a quiz session</h1>
+        <h1 className={`text-2xl font-bold ${SECTION_ACCENT.quiz}`}>Start a quiz session</h1>
         <p className="mt-0.5 text-sm text-ink-muted">
           {courseId ? "Pick a topic and we'll build a session around it." : "Pick a course to see its topics."}
         </p>

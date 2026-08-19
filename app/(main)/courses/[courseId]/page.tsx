@@ -48,6 +48,9 @@ export default function CourseDetailPage() {
         <button onClick={() => router.push(`/quiz/${courseId}`)} className="btn-primary">
           Practice this course
         </button>
+        <Link href={`/courses/${courseId}/flashcards`} className="btn-secondary">
+          Flashcards
+        </Link>
         <Link href={`/courses/${courseId}/weak-spots`} className="btn-secondary">
           Weak spots{weakSpots.data && weakSpots.data.length > 0 ? ` (${weakSpots.data.length})` : ""}
         </Link>
@@ -67,7 +70,7 @@ export default function CourseDetailPage() {
         </div>
       ) : (
         <div className="card p-4">
-          <h3 className="mb-2 font-semibold text-orange-700">Set up exam prep</h3>
+          <h3 className="mb-2 font-semibold text-ink-primary">Set up exam prep</h3>
           <p className="mb-3 text-sm text-ink-secondary">
             Pick an exam date and Recall will build a day-by-day plan that leans into your weak concepts.
           </p>
@@ -86,17 +89,17 @@ export default function CourseDetailPage() {
       )}
 
       <section>
-        <h2 className="mb-3 font-semibold text-teal-700">Modules & materials</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Modules & materials</h2>
         <MaterialStatusList materials={detail.materials} />
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-orange-700">Due today</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Due today</h2>
         {dashboard.isLoading ? <LoadingSpinner /> : <DueTodayList entries={dashboard.data?.due_today ?? []} />}
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-purple-700">Mastery by concept</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Mastery by concept</h2>
         {dashboard.isLoading ? <LoadingSpinner /> : <MasteryHeatmap entries={dashboard.data?.mastery ?? []} />}
       </section>
     </div>

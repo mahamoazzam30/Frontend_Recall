@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { logout } from "@/lib/auth";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 
 const links = [
-  { href: "/courses", label: "Courses", color: "text-indigo-700" },
-  { href: "/upload", label: "Upload", color: "text-teal-700" },
-  { href: "/quiz", label: "Quiz", color: "text-purple-700" },
-  { href: "/dashboard", label: "Dashboard", color: "text-orange-700" },
-  { href: "/profile", label: "Profile", color: "text-pink-700" },
+  { href: "/courses", label: "Courses", color: SECTION_ACCENT.courses },
+  { href: "/upload", label: "Upload", color: SECTION_ACCENT.upload },
+  { href: "/quiz", label: "Quiz", color: SECTION_ACCENT.quiz },
+  { href: "/dashboard", label: "Dashboard", color: SECTION_ACCENT.dashboard },
+  { href: "/profile", label: "Profile", color: SECTION_ACCENT.profile },
 ];
 
 export function Navbar() {

@@ -6,6 +6,7 @@ import { CourseCard } from "@/components/courses/CourseCard";
 import { CreateCourseModal } from "@/components/courses/CreateCourseModal";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { useCourses, useCreateCourse } from "@/hooks/useCourses";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 import { ColorTag } from "@/lib/types";
 
 export default function CoursesPage() {
@@ -21,7 +22,7 @@ export default function CoursesPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-indigo-700">Courses</h1>
+        <h1 className={`text-2xl font-bold ${SECTION_ACCENT.courses}`}>Courses</h1>
         <button onClick={() => setShowModal(true)} className="btn-primary">
           New course
         </button>

@@ -7,6 +7,7 @@ import { StreakBadge } from "@/components/dashboard/StreakBadge";
 import { TopicHistoryChart } from "@/components/dashboard/TopicHistoryChart";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { useDueToday, useHistory, useMastery, useStreak } from "@/hooks/useDashboard";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 
 export default function DashboardPage() {
   const mastery = useMastery();
@@ -20,7 +21,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-8">
-      <h1 className="text-2xl font-bold text-indigo-700">Dashboard</h1>
+      <h1 className={`text-2xl font-bold ${SECTION_ACCENT.dashboard}`}>Dashboard</h1>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {streak.data && <StreakBadge streak={streak.data} />}
@@ -38,17 +39,17 @@ export default function DashboardPage() {
       </div>
 
       <section>
-        <h2 className="mb-3 font-semibold text-orange-700">Due today</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Due today</h2>
         {dueToday.isLoading ? <LoadingSpinner /> : <DueTodayList entries={dueToday.data ?? []} />}
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-purple-700">Mastery by concept</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Mastery by concept</h2>
         {mastery.isLoading ? <LoadingSpinner /> : <MasteryHeatmap entries={mastery.data ?? []} />}
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-teal-700">Accuracy over time</h2>
+        <h2 className="mb-3 font-semibold text-ink-primary">Accuracy over time</h2>
         {history.isLoading ? <LoadingSpinner /> : <TopicHistoryChart points={history.data ?? []} />}
       </section>
     </div>

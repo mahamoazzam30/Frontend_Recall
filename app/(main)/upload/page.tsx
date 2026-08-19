@@ -6,6 +6,7 @@ import { FileDropzone } from "@/components/upload/FileDropzone";
 import { MaterialStatusList } from "@/components/upload/MaterialStatusList";
 import { useCourse, useCourses } from "@/hooks/useCourses";
 import { useMaterialsForCourse, useUploadMaterial } from "@/hooks/useMaterials";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 
 export default function UploadPage() {
   const { data: courses, isLoading: coursesLoading } = useCourses();
@@ -29,7 +30,7 @@ export default function UploadPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-teal-700">Upload materials</h1>
+      <h1 className={`text-2xl font-bold ${SECTION_ACCENT.upload}`}>Upload materials</h1>
 
       <section className="flex flex-col gap-2">
         <label className="text-sm font-medium text-ink-primary">Course</label>
@@ -82,7 +83,7 @@ export default function UploadPage() {
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold text-orange-700">Materials</h2>
+        <h2 className="font-semibold text-ink-primary">Materials</h2>
         <MaterialStatusList materials={materials ?? []} />
       </section>
     </div>

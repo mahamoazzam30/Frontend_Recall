@@ -22,7 +22,7 @@ export default function WeakSpotsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-pink-700">Weak spots</h1>
+        <h1 className="text-2xl font-bold text-ink-primary">Weak spots</h1>
         {weakSpots && weakSpots.length > 0 && (
           <button onClick={handlePracticeAll} disabled={practiceAll.isPending} className="btn-primary">
             {practiceAll.isPending ? "Starting…" : "Practice all weak spots"}
