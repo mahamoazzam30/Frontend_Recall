@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { StudyGroupPanel } from "@/components/courses/StudyGroupPanel";
 import { DueTodayList } from "@/components/dashboard/DueTodayList";
 import { MasteryHeatmap } from "@/components/dashboard/MasteryHeatmap";
 import { ExamCountdownCard } from "@/components/examplan/ExamCountdownCard";
@@ -101,6 +102,10 @@ export default function CourseDetailPage() {
       <section>
         <h2 className="mb-3 font-semibold text-ink-primary">Mastery by concept</h2>
         {dashboard.isLoading ? <LoadingSpinner /> : <MasteryHeatmap entries={dashboard.data?.mastery ?? []} />}
+      </section>
+
+      <section>
+        <StudyGroupPanel courseId={courseId} isOwner={detail.is_owner} />
       </section>
     </div>
   );

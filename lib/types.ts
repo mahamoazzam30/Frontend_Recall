@@ -19,6 +19,13 @@ export interface Course {
 export interface CourseListItem extends Course {
   mastery_pct: number;
   due_count: number;
+  is_owner: boolean;
+}
+
+export interface CourseMember {
+  email: string;
+  is_owner: boolean;
+  joined_at: string;
 }
 
 export interface Module {
@@ -43,6 +50,7 @@ export interface CourseDetail {
   materials: Material[];
   mastery_pct: number;
   due_count: number;
+  is_owner: boolean;
 }
 
 export interface Question {

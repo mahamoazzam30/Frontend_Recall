@@ -13,7 +13,14 @@ export function CourseCard({ course }: { course: CourseListItem }) {
       <div className={`h-1.5 ${accent}`} />
       <div className="flex items-center justify-between gap-4 p-4">
         <div className="min-w-0">
-          <h3 className="truncate text-lg font-semibold text-ink-primary">{course.name}</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="truncate text-lg font-semibold text-ink-primary">{course.name}</h3>
+            {!course.is_owner && (
+              <span className="shrink-0 rounded-full bg-seq-500/10 px-2 py-0.5 text-[11px] font-medium text-seq-600">
+                Shared
+              </span>
+            )}
+          </div>
           <p className="text-sm text-ink-secondary">Due today: {course.due_count}</p>
         </div>
         <ProgressRing percent={course.mastery_pct} size={56} strokeWidth={5} colorClass={ringColor} />
