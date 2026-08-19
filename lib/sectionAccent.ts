@@ -4,11 +4,11 @@
  * always match, instead of every file picking its own shade.
  */
 export const SECTION_ACCENT = {
-  courses: "text-indigo-600",
+  courses: "text-sky-600",
   upload: "text-teal-600",
-  quiz: "text-purple-600",
+  quiz: "text-rose-600",
   dashboard: "text-amber-600",
-  profile: "text-rose-600",
+  profile: "text-emerald-600",
 } as const;
 
 export type SectionKey = keyof typeof SECTION_ACCENT;
