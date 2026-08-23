@@ -10,34 +10,30 @@ export function ContestGradeButton({ attemptId }: { attemptId: string }) {
   const contestMutation = useContestGrade(attemptId);
 
   if (contestMutation.isSuccess) {
-    return <p className="text-sm text-gray-500">Contest submitted — you'll hear back on this grade.</p>;
+    return <p className="text-sm text-ink-muted">Contest submitted — you'll hear back on this grade.</p>;
   }
 
   if (!open) {
     return (
-      <button onClick={() => setOpen(true)} className="text-sm text-gray-500 underline">
+      <button onClick={() => setOpen(true)} className="text-sm text-seq-600 underline">
         Contest this grade
       </button>
     );
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded border p-3">
-      <label className="text-sm font-medium">Why do you think this grade is wrong?</label>
-      <textarea
-        className="rounded border p-2 text-sm"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      />
+    <div className="card flex flex-col gap-2 p-3">
+      <label className="text-sm font-medium text-ink-primary">Why do you think this grade is wrong?</label>
+      <textarea className="input text-sm" value={note} onChange={(e) => setNote(e.target.value)} />
       <div className="flex gap-2">
         <button
           onClick={() => note.trim() && contestMutation.mutate(note.trim())}
           disabled={!note.trim() || contestMutation.isPending}
-          className="rounded bg-black px-3 py-1 text-sm text-white disabled:opacity-50"
+          className="btn-primary px-3 py-1"
         >
           {contestMutation.isPending ? "Submitting…" : "Submit"}
         </button>
-        <button onClick={() => setOpen(false)} className="text-sm text-gray-500">
+        <button onClick={() => setOpen(false)} className="text-sm text-ink-muted">
           Cancel
         </button>
       </div>

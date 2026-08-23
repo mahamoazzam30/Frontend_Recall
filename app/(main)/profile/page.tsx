@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { api } from "@/lib/api";
 import { logout } from "@/lib/auth";
+import { SECTION_ACCENT } from "@/lib/sectionAccent";
 import { User } from "@/lib/types";
 
 export default function ProfilePage() {
@@ -18,17 +19,19 @@ export default function ProfilePage() {
 
   return (
     <div className="flex max-w-sm flex-col gap-4">
-      <h1 className="text-2xl font-bold">Profile</h1>
-      {isLoading ? (
-        <p className="text-sm text-gray-500">Loading…</p>
-      ) : (
-        <p className="text-sm">
-          Signed in as <span className="font-medium">{user?.email}</span>
-        </p>
-      )}
-      <button onClick={handleLogout} className="self-start rounded border px-4 py-2 text-sm">
-        Log out
-      </button>
+      <h1 className={`text-2xl font-bold ${SECTION_ACCENT.profile}`}>Profile</h1>
+      <div className="card flex flex-col gap-3 p-5">
+        {isLoading ? (
+          <p className="text-sm text-ink-muted">Loading…</p>
+        ) : (
+          <p className="text-sm text-ink-secondary">
+            Signed in as <span className="font-medium text-ink-primary">{user?.email}</span>
+          </p>
+        )}
+        <button onClick={handleLogout} className="btn-secondary self-start">
+          Log out
+        </button>
+      </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export function TodaysPlanList({
   const nameById = new Map(mastery.map((m) => [m.concept_id, m.concept_name]));
 
   if (targetConceptIds.length === 0) {
-    return <p className="text-sm text-gray-500">Nothing scheduled for today — you're on track.</p>;
+    return <p className="text-sm text-ink-muted">Nothing scheduled for today — you're on track.</p>;
   }
 
   function practiceNow() {
@@ -24,16 +24,16 @@ export function TodaysPlanList({
   }
 
   return (
-    <div className="rounded-lg border p-4">
-      <h3 className="mb-3 font-semibold">Today's plan</h3>
+    <div className="card p-4">
+      <h3 className="mb-3 font-semibold text-ink-primary">Today's plan</h3>
       <ul className="mb-4 flex flex-col gap-2">
         {targetConceptIds.map((id) => (
-          <li key={id} className="rounded border p-2 text-sm">
+          <li key={id} className="rounded-lg border border-ink-primary/10 bg-surface-page p-2 text-sm text-ink-primary">
             {nameById.get(id) ?? "Concept"}
           </li>
         ))}
       </ul>
-      <button onClick={practiceNow} className="w-full rounded bg-black px-4 py-2 text-sm font-medium text-white">
+      <button onClick={practiceNow} className="btn-primary w-full">
         Practice now
       </button>
     </div>

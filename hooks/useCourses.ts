@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "@/lib/api";
-import { ColorTag, CourseDashboard, CourseDetail, CourseListItem, Module } from "@/lib/types";
+import { ColorTag, CourseDashboard, CourseDetail, CourseListItem, CourseMember, Module, Topic } from "@/lib/types";
 
 export function useCourses() {
   return useQuery({
@@ -15,6 +15,15 @@ export function useCourse(courseId: string | null) {
     queryKey: ["courses", courseId],
     queryFn: () => api.get<CourseDetail>(`/courses/${courseId}`),
     enabled: !!courseId,
+  });
+}
+
+export function useCourseTopics(courseId: string | null) {
+  return useQuery({
+    queryKey: ["courses", courseId, "topics"],
+    queryFn: () => api.get<{ topics: Topic[] }>(`/courses/${courseId}/topics`),
+    enabled: !!courseId,
+    staleTime: Infinity,
   });
 }
 
@@ -40,5 +49,21 @@ export function useCreateModule(courseId: string) {
   return useMutation({
     mutationFn: (name: string) => api.post<Module>(`/courses/${courseId}/modules`, { name }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["courses", courseId] }),
+  });
+}
+
+export function useJoinCourse() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (courseId: string) => api.post<CourseListItem>(`/courses/${courseId}/join`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["courses"] }),
+  });
+}
+
+export function useCourseMembers(courseId: string | null) {
+  return useQuery({
+    queryKey: ["courses", courseId, "members"],
+    queryFn: () => api.get<CourseMember[]>(`/courses/${courseId}/members`),
+    enabled: !!courseId,
   });
 }

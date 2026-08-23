@@ -19,6 +19,13 @@ export interface Course {
 export interface CourseListItem extends Course {
   mastery_pct: number;
   due_count: number;
+  is_owner: boolean;
+}
+
+export interface CourseMember {
+  email: string;
+  is_owner: boolean;
+  joined_at: string;
 }
 
 export interface Module {
@@ -43,6 +50,7 @@ export interface CourseDetail {
   materials: Material[];
   mastery_pct: number;
   due_count: number;
+  is_owner: boolean;
 }
 
 export interface Question {
@@ -118,10 +126,45 @@ export interface ExamPlan {
   today_target_concept_ids: string[];
 }
 
+export interface ChatSource {
+  content: string;
+  page_ref: string | null;
+}
+
+export interface ChatResponse {
+  answer: string;
+  sources: ChatSource[];
+}
+
+export interface Topic {
+  id: string;
+  name: string;
+}
+
 export interface WeakSpot {
   concept_id: string;
   concept_name: string;
   mastery_pct: number;
   error_note: string | null;
   last_reviewed_at: string | null;
+}
+
+export type RecallRating = "forgot" | "struggled" | "knew_it";
+
+export interface Flashcard {
+  id: string;
+  type: QuestionType;
+  prompt: string;
+  answer_key: string;
+  concept_id: string;
+}
+
+export interface FlashcardSession {
+  cards: Flashcard[];
+}
+
+export interface FlashcardReview {
+  question_id: string;
+  score: number;
+  mastery_pct: number;
 }

@@ -18,10 +18,10 @@ export function QuestionCardShortAnswer({
   const [answer, setAnswer] = useState("");
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-lg font-medium">{question.prompt}</p>
+    <div className="card flex flex-col gap-4 p-5">
+      <p className="text-lg font-medium text-ink-primary">{question.prompt}</p>
       <textarea
-        className="min-h-[120px] rounded border p-2"
+        className="input min-h-[120px]"
         placeholder="Type your answer…"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
@@ -30,7 +30,7 @@ export function QuestionCardShortAnswer({
       <button
         onClick={() => answer.trim() && onSubmit(answer.trim())}
         disabled={!answer.trim() || disabled}
-        className="self-start rounded bg-black px-4 py-2 text-white disabled:opacity-50"
+        className="btn-primary self-start"
       >
         {isGrading ? "Grading…" : "Submit"}
       </button>

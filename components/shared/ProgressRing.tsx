@@ -2,7 +2,7 @@ export function ProgressRing({
   percent,
   size = 64,
   strokeWidth = 6,
-  colorClass = "stroke-black",
+  colorClass = "stroke-seq-500",
   label,
 }: {
   percent: number;
@@ -24,7 +24,7 @@ export function ProgressRing({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          className="fill-none stroke-gray-200"
+          className="fill-none stroke-hairline"
         />
         <circle
           cx={size / 2}
