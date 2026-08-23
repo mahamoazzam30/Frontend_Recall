@@ -35,7 +35,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`${link.color} transition ${active ? "font-semibold" : "opacity-60 hover:opacity-100"}`}
+              className={`${link.color} transition ${active ? "font-semibold" : "opacity-80 hover:opacity-100"}`}
             >
               {link.label}
             </Link>
