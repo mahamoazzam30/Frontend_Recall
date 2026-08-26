@@ -1,0 +1,38 @@
+{
+  "name": "recall-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n frontend,backend -c blue,green \"npm:dev:next\" \"npm:dev:backend\"",
+    "dev:next": "next dev -p 3000",
+    "dev:backend": "C:/Users/User/PycharmProjects/PythonProject1/.venv/Scripts/python.exe -m uvicorn app.main:app --reload --reload-dir C:/Users/User/PycharmProjects/PythonProject1/backend --port 8000 --app-dir C:/Users/User/PycharmProjects/PythonProject1/backend",
+    "build": "next build",
+    "start": "next start",
+    "predemo": "next build",
+    "demo": "concurrently -n frontend,backend -c blue,green \"npm:start\" \"npm:demo:backend\"",
+    "demo:backend": "C:/Users/User/PycharmProjects/PythonProject1/.venv/Scripts/python.exe -m uvicorn app.main:app --port 8000 --app-dir C:/Users/User/PycharmProjects/PythonProject1/backend",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@tanstack/react-query": "^5.51.1",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^10.0.5",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.5.4"
+  }
+}
